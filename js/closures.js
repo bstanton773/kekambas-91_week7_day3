@@ -172,3 +172,43 @@ const fib = makeFibWithCache();
 console.log(fib(10));
 console.log(fib(40));
 console.log(fib(100));
+
+
+// IIFE - Immediately Invoked Function Expression
+
+
+let myFullName = (function formatName(first, last){
+    return [first, last].join(' ')
+})('Brian', 'Stanton')
+
+console.log(myFullName);
+
+// Set up closures with IIFE
+
+let stepByFive = (function setCounter(step){
+    let count = 0;
+    function inner(){
+        return count += step
+    }
+    return inner
+})(5);
+
+
+console.log(stepByFive());
+console.log(stepByFive());
+console.log(stepByFive());
+console.log(stepByFive());
+console.log(stepByFive());
+
+
+// In Class Exercise
+// Create an IIFE that has a hidden array of names (starts as an empty array) but will add users to the list every time the function is called
+
+
+
+let addName = (function(){})()
+
+addName('Brian'); // ['Brian']
+addName('Tatyana'); // ['Brian', 'Tatyana']
+addName('Ripal'); // ['Brian', 'Tatyana', 'Ripal']
+addName('Sam'); // ['Brian', 'Tatyana', 'Ripal', 'Sam']
