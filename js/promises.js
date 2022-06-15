@@ -108,3 +108,33 @@ function getUsersTotalFromUserId(userId){
         .then(total => console.log(`Your total is $${total}`))
         .catch(err => console.warn(err))
 }
+
+
+// Async / Await -- allows us to write our code to look more synchronous. *It is simply syntactical sugar for Promises*
+
+function getUsersTotalFromUserId(userId){
+    getUser(userId)
+        .then(user => getUserOrder(user))
+        .then(order => getOrderTotal(order))
+        .then(total => console.log(`Your total is $${total}`))
+        .catch(err => console.warn(err))
+}
+
+// What it would look like in Python (synchronous)
+// def get_user_total_from_id(user_id):
+//     user = getUser(userId)
+//     order = getUserOrder(user)
+//     total = getOrderTotal(order)
+//     print(f"Your total is ${total}")
+
+async function getUserTotal(userId){
+    try{
+        let user = await getUser(userId);
+        let order = await getUserOrder(user);
+        let total = await getOrderTotal(order);
+        console.log(`Your total is $${total}`)
+    } catch(err) {
+        console.warn(err)
+    }
+}
+
