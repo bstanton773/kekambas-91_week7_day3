@@ -102,3 +102,73 @@ console.log(triple(4));
 console.log(triple(10));
 console.log(triple(7));
 
+
+// Setting up a "hidden" variable using closures
+
+function setCounter(){
+    console.log('Counter Set!')
+    let count = 0; // Block level scope
+    function inner(){
+        return count++
+    }
+    return inner
+}
+
+const step = setCounter();
+
+console.log(step);
+
+console.log(step());
+console.log(step());
+console.log(step());
+console.log(step());
+console.log(step());
+console.log(step());
+console.log(step());
+console.log(step());
+
+
+// Another Practical Example - hiding variables
+
+
+// var cache = {}
+
+// function fib(num){
+//     if (num < 2){
+//         return num
+//     } else if (num in cache){
+//         return cache[num]
+//     } else {
+//         let fib_num = fib(num - 1) + fib(num - 2);
+//         cache[num] = fib_num
+//         return fib_num
+//     }
+// }
+
+
+// console.log(fib(10));
+
+// Hide the Cache in a Closure
+
+function makeFibWithCache(){
+    var cache = {};
+    function innerFib(num){
+        if (num < 2){
+            return num
+        } else if (num in cache){
+            return cache[num]
+        } else {
+            let fib_num = innerFib(num - 1) + innerFib(num - 2);
+            cache[num] = fib_num
+            return fib_num
+        }
+    }
+    return innerFib
+}
+
+
+const fib = makeFibWithCache();
+
+console.log(fib(10));
+console.log(fib(40));
+console.log(fib(100));
