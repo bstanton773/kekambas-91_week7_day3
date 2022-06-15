@@ -26,29 +26,85 @@ function downloadSong(songName){
 // console.log(mySong);
 // mySong.then(song => console.log(song.toUpperCase()));
 
-downloadSong('Yesterday').then(s => console.log(`We are now playing ${s}`))
+// downloadSong('Yesterday').then(s => console.log(`We are now playing ${s}`))
 
-downloadSong('ABC').then(s => console.log(`We are now playing ${s}`)).catch(e => console.warn(e))
+// downloadSong('ABC').then(s => console.log(`We are now playing ${s}`)).catch(e => console.warn(e))
 
 
-function playSong(songFile){
-    return new Promise((res, rej) => {
+// function playSong(songFile){
+//     return new Promise((res, rej) => {
+//         setTimeout(() => {
+//             res(`${songFile} is playing...`)
+//         }, 2000)
+//     })
+// }
+
+
+
+
+// downloadSong('ABC')
+// .then((s) => {
+//     console.log(`${s} has downloaded`)
+//     return playSong(s)
+// })
+// .then(message => console.log(message))
+// .catch(err => console.warn(err))
+
+
+
+// Real Life Example
+// Get the price of a user's orders based on user_id
+// userId -> user -> user's orders -> calculate order total
+
+
+function getUser(userId){
+    return new Promise((resolve, reject) => {
+        console.log(`Searching for user #${userId} in database...`)
         setTimeout(() => {
-            res(`${songFile} is playing...`)
+            // Set up some fake rule for if a user does not exist
+            if (userId >= 100){
+                let user = {
+                    id: userId,
+                    username: 'johnqsample'
+                }
+                resolve(user)
+            } else {
+                reject(`No user with id #${userId}`)
+            }
         }, 2000)
     })
 }
 
 
+function getUserOrder(user){
+    console.log(`Getting the orders for ${user.username}`)
+    return new Promise((res, rej) => {
+        setTimeout(()=>{
+            let orders = [
+                {prodName: 'Computer', price: 1000},
+                {prodName: 'Water Bottle', price: 12},
+                {prodName: 'Picture Frame', price: 14},
+            ]
+            res(orders)
+        }, 2000)
+    })
+}
 
+function getOrderTotal(order){
+    console.log("Calculating order total:...")
+    return new Promise((res, rej) => {
+        setTimeout(() => {
+            let total = 0
+            order.forEach(p => total += p.price)
+            res(total)
+        }, 1000)
+    })
+}
 
-downloadSong('ABC')
-.then((s) => {
-    console.log(`${s} has downloaded`)
-    return playSong(s)
-})
-.then(message => console.log(message))
-.catch(err => console.warn(err))
-
-
-
+function getUsersTotalFromUserId(userId){
+    getUser(userId)
+        .then(user => getUserOrder(user))
+        .then(order => getOrderTotal(order))
+        .then(total => console.log(`Your total is $${total}`))
+        .catch(err => console.warn(err))
+}
