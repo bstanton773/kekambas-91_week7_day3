@@ -54,4 +54,4 @@ console.log(filterWithCallback(numbers, function(num){
 }))
 
 // More so with arrow functions
-console.log(filterWithCallback(numbers, (num) => num % 10 === 0))
+console.log(filterWithCallback(numbers, num => num % 10 === 0))
