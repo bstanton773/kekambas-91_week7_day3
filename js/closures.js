@@ -206,9 +206,18 @@ console.log(stepByFive());
 
 
 
-let addName = (function(){})()
+let addName = (function(x){
+    let users = [];
+    function inner(name){
+        x++
+        console.log(x)
+        users.push(name);
+        return users
+    }
+    return inner
+})(10)
 
-addName('Brian'); // ['Brian']
-addName('Tatyana'); // ['Brian', 'Tatyana']
-addName('Ripal'); // ['Brian', 'Tatyana', 'Ripal']
-addName('Sam'); // ['Brian', 'Tatyana', 'Ripal', 'Sam']
+console.log(addName('Brian')); // ['Brian']
+console.log(addName('Tatyana')); // ['Brian', 'Tatyana']
+console.log(addName('Ripal')); // ['Brian', 'Tatyana', 'Ripal']
+console.log(addName('Sam')); // ['Brian', 'Tatyana', 'Ripal', 'Sam']
